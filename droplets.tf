@@ -1,10 +1,11 @@
 resource "digitalocean_droplet" "web" {
+  count  = 3
   image  = "ubuntu-20-04-x64"
-  name   = "test-droplet"
+  name   = "test-droplet-${count.index}"
   region = "fra1"
   size   = "s-1vcpu-1gb"
 }
 
-output "droplet_ip_address" {
-  value = digitalocean_droplet.web.ipv4_address
+output "droplet_ip_addresses" {
+  value = digitalocean_droplet.web[*].ipv4_address
 }
